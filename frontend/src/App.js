@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch('/api/db-data')
+      const result = await fetch('https://todo-backend-tp8j.onrender.com/api/db-data')
       const data = await result.json();
       console.log(data);
       setDbData(data);
@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   const handelNewUserData = () => {
-    fetch('/api/new-user', {
+    fetch('https://todo-backend-tp8j.onrender.com/api/new-user', {
       method : 'POST',
       headers : {
         'Content-Type' : 'application/json'
@@ -32,7 +32,7 @@ function App() {
   };
 
   const handelDeleteUser = (phoneId) => {
-    fetch(`/api/delete-user/${phoneId}`, {
+    fetch(`https://todo-backend-tp8j.onrender.com/api/delete-user/${phoneId}`, {
       method : 'DELETE',
       headers : {
         'Content-Type' : 'application/json'
