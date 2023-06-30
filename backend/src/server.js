@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const {MongoClient} = require('mongodb');
 const app = express();
 const port = 4000 ;
@@ -7,6 +8,7 @@ require('dotenv').config();
 
 const URI = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.q23poih.mongodb.net/?retryWrites=true&w=majority`
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const withDB = async(operations , res) => {
@@ -25,13 +27,14 @@ const withDB = async(operations , res) => {
 };
 
 app.get('/api/db-data', async(req,res) => {
+
     withDB(async(db) => {
         const userData = await db.collection('test').find().toArray();
         res.status(200).json(userData);
-    }, res)
+    }, res);
 });
 
-app.post('/api/new-user', (req , res) => {
+app.post('/api/new-contact-data', (req , res) => {
     const newUser = req.body ;
 
     withDB( async(db) => {
@@ -41,7 +44,7 @@ app.post('/api/new-user', (req , res) => {
             Phone : newUser.phone ,
         });
         res.status(200).json(newUser);
-    }, res)
+    }, res);
 });
 
 app.delete('/api/delete-user/:phoneId', (req ,res) => {

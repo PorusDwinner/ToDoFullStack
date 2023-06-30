@@ -11,14 +11,14 @@ function App() {
     const fetchData = async () => {
       const result = await fetch('https://todo-backend-tp8j.onrender.com/api/db-data')
       const data = await result.json();
-      console.log(data);
       setDbData(data);
+      console.log(data);
     };
     fetchData();
-  }, [])
+  }, []);
 
-  const handelNewUserData = () => {
-    fetch('https://todo-backend-tp8j.onrender.com/api/new-user', {
+  const handelNewUserData = (e) => {
+    fetch('https://todo-backend-tp8j.onrender.com/api/new-contact-data', {
       method : 'POST',
       headers : {
         'Content-Type' : 'application/json'
@@ -60,7 +60,7 @@ function App() {
             <input type='text' name="phone" value={phone} className='border-2 rounded p-1'
               onChange={(e) => setPhone(e.target.value)} />
 
-            <button type="submit" className="bg-blue-500 text-white font-medium py-1 mt-2" >
+            <button type="submit" className="bg-blue-500 text-white font-medium py-1 mt-2">
               Save
             </button>  
 
@@ -92,7 +92,7 @@ function App() {
                     Edit
                   </button> */}
                   
-                  <button className="bg-red-600 text-white py-1 px-4"
+                  <button className="bg-red-600 text-white py-1 px-4 hover:bg-red-500"
                    onClick={() => handelDeleteUser(ele.Phone)} >
                     Delete
                   </button>
@@ -105,10 +105,16 @@ function App() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-[2rem] text-xl font-bold text-slate-600 font-mono">
+      <div className="flex flex-col space-y-2 text-center mt-[2rem] text-xl font-bold text-slate-600 font-mono">
         <h1>
           Please Wait , contact will appear on right 
         </h1>
+        <p>
+          If API is not working due to CORS block, download the extension CORS unblock from the link below
+        </p>
+        <span className="text-blue-500">
+        https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino/related?hl=en
+        </span>
       </div>
     </div>
   );
