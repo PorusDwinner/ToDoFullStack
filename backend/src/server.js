@@ -3,14 +3,17 @@ const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
 const app = express();
 const port = 4000 ;
+require('dotenv').config();
+
+const URI = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.q23poih.mongodb.net/?retryWrites=true&w=majority`
 
 app.use(bodyParser.json());
 
 const withDB = async(operations , res) => {
     try{
-        const client = await MongoClient.connect(
-        'mongodb+srv://PorusDwinner:newTomongodb@cluster0.q23poih.mongodb.net/?retryWrites=true&w=majority',
-        { useNewUrlParser : true , useUnifiedTopology : true } )
+        const client = await MongoClient.connect(URI,
+            { useNewUrlParser : true , useUnifiedTopology : true }
+        )
 
         const db = client.db('crud');
         await operations(db);
